@@ -1,0 +1,22 @@
+version: 1.0.{build}
+image: Windows Server 2019
+
+# Uncomment to debug via RDP
+# init:
+#   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+# 
+# on_finish:
+#   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+install:
+  - ps: Write-Host Server version $(gp 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion').BuildLabEx
+  - docker version
+
+build_script:
+  - ps: .\build.ps1
+
+test_script:
+  - ps: .\test.ps1
+
+deploy_script:
+  - ps: .\deploy.ps1
