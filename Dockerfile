@@ -12,8 +12,18 @@ SHELL ["pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference
 
 USER ContainerAdministrator 
 ARG DOCKER_VERSION
+# Install Docker CLI
 RUN $DockerPath = 'C:\Program Files\Docker'; \
     New-Item -Path $DockerPath -ItemType "directory" -Force ; \
-    Invoke-WebRequest "https://github.com/StefanScherer/docker-cli-builder/releases/download/${env:DOCKER_VERSION}/docker.exe" -OutFile "$DockerPath\docker.exe" -UseBasicParsing ; \
+    Invoke-WebRequest $('https://github.com/StefanScherer/docker-cli-builder/releases/download/{0}/docker.exe' -f $env:DOCKER_VERSION) -OutFile "$DockerPath\docker.exe" -UseBasicParsing ; \
     setx /M PATH $('{0};{1}' -f  $DockerPath, $env:PATH) ;
+
+# Install MinGit
+ARG GIT_VERSION
+ARG GIT_PATCH_VERSION
+RUN $GitPath = 'C:\Program Files\Git'; \
+    Invoke-WebRequest $('https://github.com/git-for-windows/git/releases/download/v{0}.windows.{1}/MinGit-{0}.{1}-busybox-64-bit.zip' -f $env:GIT_VERSION, $env:GIT_PATCH_VERSION) -OutFile 'mingit.zip' -UseBasicParsing ; \
+    Expand-Archive mingit.zip -DestinationPath $GitPath ; \
+    Remove-Item mingit.zip -Force ; \
+    setx /M PATH $('{0}\cmd;{1}' -f $GitPath, $env:PATH)
 USER ContainerUser

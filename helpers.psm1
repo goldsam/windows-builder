@@ -5,10 +5,9 @@ Function Get-GetBuildProperties
 
 Function Get-TagNames 
 {
-    $BuildProps = (Get-GetBuildProperties)
+    $BuildProps = (Get-GetBuildProperties);
     return @(
-      "$($BuildProps.windowsVersion)-$($BuildProps.dockerVersion)",
-      "$($BuildProps.windowsVersion)",
+      "nanoserver-$($BuildProps.versions.WINDOWS)",
       "latest"
     ) | ForEach-Object { "$($BuildProps.image):$_" };
 }

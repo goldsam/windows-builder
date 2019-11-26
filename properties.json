@@ -1,6 +1,10 @@
 {
   "repository": "goldsam",
-  "image": "powershell-docker-cli",
-  "windowsVersion": "1809",
-  "dockerVersion": "19.03.3"
+  "image": "windows-builder",
+  "versions": {
+    "WINDOWS": "1809",
+    "DOCKER": "19.03.3",
+    "GIT": "2.15.1",
+    "GIT_PATCH": "2"
+  }
 }
