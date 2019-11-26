@@ -26,4 +26,3 @@ RUN $GitPath = 'C:\Program Files\Git'; \
     Expand-Archive mingit.zip -DestinationPath $GitPath ; \
     Remove-Item mingit.zip -Force ; \
     setx /M PATH $('{0}\mingw64\bin;{1}' -f $GitPath, $env:PATH)
-USER ContainerUser
