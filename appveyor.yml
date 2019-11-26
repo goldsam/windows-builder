@@ -9,6 +9,11 @@ image:
 # on_finish:
 #   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
+environment:
+  DOCKER_USER: goldsam
+  DOCKER_PASS:
+    secure: CJlo67WweJadz0PsmR21eQ==
+
 install:
   - ps: Write-Host Server version $(gp 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion').BuildLabEx
   - docker version

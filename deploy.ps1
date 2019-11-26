@@ -24,6 +24,5 @@ $auth64 = [Convert]::ToBase64String($auth);
 
 $BuildProps = (Get-GetBuildProperties);
 Get-TagNames | ForEach-Object {
-  # docker push $($BuildProps.repository)/docker-cli-windows:$version-1607-deprecated
-  Write-Host "$($BuildProps.repository)/$_";
+  docker push "$($BuildProps.repository)/$_";
 }
